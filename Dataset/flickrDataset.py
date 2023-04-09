@@ -124,7 +124,7 @@ def getLoader(
         collate_fn=PadCollate(dataset.vocab.strToIdx[PAD_TAG])
     )
 
-    return dataloader
+    return dataloader, dataset
 
 
 if __name__ == "__main__":
