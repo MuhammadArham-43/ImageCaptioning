@@ -48,13 +48,16 @@ if __name__ == "__main__":
 
     criterion = nn.CrossEntropyLoss(
         ignore_index=dataset.vocab.strToIdx["<PAD>"])
-    optimizer = optim.Adam(lr=LR)
+    optimizer = optim.Adam(model.parameters(), lr=LR)
 
     model.train()
 
     print("STARTING TRAINING...")
     for epoch in tqdm(range(NUM_EPOCHS)):
         for idx, (images, captions) in enumerate(train_loader):
+            images = images.to(DEVICE)
+            captions = captions.to(DEVICE)
+            
             outputs = model(images, captions[:-1])
             loss = criterion(
                 outputs.reshape(-1, outputs.shape[2]), captions.reshape(-1))

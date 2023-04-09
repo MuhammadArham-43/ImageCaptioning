@@ -1,5 +1,5 @@
 import torch.nn as nn
-from torchvision.models import inception_v3, resnet50
+from torchvision.models import inception_v3
 
 
 class EncoderCNN(nn.Module):
@@ -7,7 +7,7 @@ class EncoderCNN(nn.Module):
         super(EncoderCNN, self).__init__()
         self.embed_dim = embed_dim
 
-        self.inception = resnet(pretrained=True, aux_logits=True)
+        self.inception =inception_v3(pretrained=True, aux_logits=True)
         self.inception.fc = nn.Linear(self.inception.fc.in_features, embed_dim)
         self.relu = nn.ReLU()
         self.dropout = nn.Dropout(0.5)
